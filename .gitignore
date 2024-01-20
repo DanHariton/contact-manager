@@ -1,0 +1,14 @@
+###> symfony/framework-bundle ###
+/.idea/
+!/.idea/symfony2.xml
+!/.idea/inspectionProfiles/
+/.env.local
+/.env.local.php
+/.env.*.local
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+/loggerFiles/*
+.DS_Store
+/assets/vendor/
