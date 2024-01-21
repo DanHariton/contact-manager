@@ -22,7 +22,7 @@
                         <td>{{ contact.surname }}</td>
                         <td>{{ contact.phone }}</td>
                         <td>{{ contact.email }}</td>
-                        <td>{{ render_truncated_text(contact.note, constant("App\\Entity\\Contact::NOTE_SHOW_LENGTH"), contact.id)|raw }}</td>
+                        <td>{{ render_truncated_text(contact.note, show_length, contact.id)|raw }}</td>
                         <td>
                             <a class="btn btn-info btn-sm text-white me-2 mb-2" href="{{ path('contact_edit', {name: contact.name}) }}">
                                 <i class="fa-regular fa-pen-to-square me-2"></i>{{ 'button.edit'|trans }}

@@ -16,14 +16,14 @@ class PaginatorProvider
     {
     }
 
-    public function createPaginator(Query $query, ?int $page = null, ?int $limit = null): PaginationInterface
+    public function createPaginator(Query $query, ?int $page = null, int $limit = self::DEFAULT_ITEM_COUNT): PaginationInterface
     {
         $page = $page ?? 1;
 
         return $this->paginator->paginate(
             $query,
             $page,
-            $limit ?? self::DEFAULT_ITEM_COUNT
+            $limit
         );
     }
 }

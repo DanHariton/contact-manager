@@ -14,8 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity('name')]
 class Contact
 {
-    public const NOTE_SHOW_LENGTH = 100;
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

@@ -36,19 +36,12 @@ class ContactController extends AbstractController
     }
 
     #[Route("/{name}", name: "edit")]
-    #[Route("/contact/create", name: "create")]
-    public function create(Request $request, ?string $name): Response
+    public function edit(Request $request, ?string $name): RedirectResponse|Response
     {
-        $isCreatingNewContact = $request->attributes->get('_route') === 'contact_create';
+        $contact = $this->contactService->loadEntity((string) $name);
 
-        if ($isCreatingNewContact) {
-            $contact = new Contact();
-        } else {
-            $contact = $this->contactService->loadEntity((string) $name);
-
-            if (!$contact) {
-                throw $this->createNotFoundException($this->translator->trans('message.notFound'));
-            }
+        if (!$contact) {
+            throw $this->createNotFoundException($this->translator->trans('message.notFound'));
         }
 
         $form = $this->createForm(ContactFormType::class, $contact)->handleRequest($request);
@@ -60,13 +53,31 @@ class ContactController extends AbstractController
         }
 
         return $this->render('contact/edit.html.twig', [
-            'isCreatingNewContact' => $isCreatingNewContact,
             'form'                 => $form->createView(),
             'contact'              => $contact
         ]);
     }
 
-    #[Route("/delete/{contact}", name: "delete")]
+    #[Route("/contact/create", name: "create")]
+    public function create(Request $request): RedirectResponse|Response
+    {
+        $contact = new Contact();
+
+        $form = $this->createForm(ContactFormType::class, $contact)->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $contact = $this->contactService->saveContact($form->getData());
+
+            return $this->redirectToRoute('contact_edit', ['name' => $contact->getName()]);
+        }
+
+        return $this->render('contact/edit.html.twig', [
+            'form'                 => $form->createView(),
+            'contact'              => $contact
+        ]);
+    }
+
+    #[Route("/contact/delete/{contact}", name: "delete")]
     public function delete(Contact $contact): RedirectResponse
     {
         $this->contactService->deleteContact($contact);
