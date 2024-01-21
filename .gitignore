@@ -12,3 +12,4 @@
 /loggerFiles/*
 .DS_Store
 /assets/vendor/
+/.phpunit.result.cache
