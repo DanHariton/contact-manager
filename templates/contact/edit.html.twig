@@ -1,0 +1,77 @@
+{% extends 'base_site.html.twig' %}
+
+{% block title %}
+    {% if isCreatingNewContact %}
+        {{ 'title.new'|trans }}
+    {% else %}
+        {{ 'title.exist'|trans ~ ' - ' ~ contact.name }}
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <a href="{{ path('contact_list') }}" class="btn btn-primary mt-3">< {{ 'button.back'|trans }}</a>
+        {% if isCreatingNewContact %}
+            <h2 class="my-4">{{ 'title.new'|trans }}</h2>
+        {% else %}
+            <h2 class="my-4">{{ 'title.exist'|trans }}&nbsp;-&nbsp;{{ contact.id }}</h2>
+        {% endif %}
+
+        {{ form_start(form, {attr: {'novalidate': 'novalidate'}}) }}
+        <div class="mx-auto">
+            <div class="row mb-3">
+                <div class="col-12 col-md-6">
+                    {{ form_label(form.name) }}
+                    {% if form_errors(form.name) %}
+                        <div class="alert alert-danger" role="alert">
+                            <ul class="mb-0">
+                                {{ form_errors(form.name) | striptags('<li>') | raw }}
+                            </ul>
+                        </div>
+                    {% endif %}
+                    {{ form_widget(form.name) }}
+                </div>
+                <div class="col-12 col-md-6">
+                    {{ form_label(form.surname) }}
+                    {% if form_errors(form.surname) %}
+                        <div class="alert alert-danger" role="alert">
+                            <ul class="mb-0">
+                                {{ form_errors(form.surname) | striptags('<li>') | raw }}
+                            </ul>
+                        </div>
+                    {% endif %}
+                    {{ form_widget(form.surname) }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-12 col-md-6">
+                    {{ form_label(form.email) }}
+                    {% if form_errors(form.email) %}
+                        <div class="alert alert-danger" role="alert">
+                            <ul class="mb-0">
+                                {{ form_errors(form.email) | striptags('<li>') | raw }}
+                            </ul>
+                        </div>
+                    {% endif %}
+                    {{ form_widget(form.email) }}
+                </div>
+                <div class="col-12 col-md-6">
+                    {{ form_label(form.phone) }}
+                    {% if form_errors(form.phone) %}
+                        <div class="alert alert-danger" role="alert">
+                            <ul class="mb-0">
+                                {{ form_errors(form.phone) | striptags('<li>') | raw }}
+                            </ul>
+                        </div>
+                    {% endif %}
+                    {{ form_widget(form.phone) }}
+                </div>
+            </div>
+
+            {{ form_row(form.note) }}
+            {{ form_row(form.submit, {noMargin: true}) }}
+        </div>
+        {{ form_end(form) }}
+
+    </div>
+{% endblock %}

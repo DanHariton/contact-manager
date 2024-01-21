@@ -1,0 +1,44 @@
+{% extends 'base_site.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="d-flex justify-content-end mt-5 mb-3">
+            <a class="btn btn-primary" href="{{ path('contact_create') }}"><i class="fa-solid fa-plus me-2"></i> {{ 'button.create'|trans }}</a>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">{{ 'contact.name'|trans }}</th>
+                    <th scope="col">{{ 'contact.surname'|trans }}</th>
+                    <th scope="col">{{ 'contact.phone'|trans }}</th>
+                    <th scope="col">{{ 'contact.email'|trans }}</th>
+                    <th scope="col">{{ 'contact.note'|trans }}</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for contact in pagination %}
+                    <tr>
+                        <td>{{ contact.name }}</td>
+                        <td>{{ contact.surname }}</td>
+                        <td>{{ contact.phone }}</td>
+                        <td>{{ contact.email }}</td>
+                        <td>{{ render_truncated_text(contact.note, constant("App\\Entity\\Contact::NOTE_SHOW_LENGTH"), contact.id)|raw }}</td>
+                        <td>
+                            <a class="btn btn-info btn-sm text-white me-2 mb-2" href="{{ path('contact_edit', {name: contact.name}) }}">
+                                <i class="fa-regular fa-pen-to-square me-2"></i>{{ 'button.edit'|trans }}
+                            </a>
+                            <a class="btn btn-danger btn-sm text-white" href="{{ path('contact_delete', {contact: contact.id}) }}">
+                                <i class="fa-solid fa-trash me-2"></i>{{ 'button.delete'|trans }}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
+
+    {% include 'contact/components/show_more_modal.html.twig' %}
+{% endblock %}

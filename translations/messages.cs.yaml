@@ -1,0 +1,21 @@
+contact:
+  name: "Jméno"
+  surname: "Příjmení"
+  phone: "Telefonní číslo"
+  email: "E-mail"
+  note: "Poznámka"
+
+button:
+  close: "Zavřít"
+  edit: "Změnit"
+  delete: "Vymazat"
+  more: "Více"
+  create: "Vytvořit"
+  back: "Zpět"
+
+title:
+  exist: "Upravit kontakt"
+  new: "Vytvořit nový kontakt"
+
+message:
+  notFound: "Zvoleny kontakt neexistuje"
