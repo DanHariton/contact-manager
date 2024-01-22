@@ -24,11 +24,8 @@
                         <td>{{ contact.email }}</td>
                         <td>{{ render_truncated_text(contact.note, show_length, contact.id)|raw }}</td>
                         <td>
-                            <a class="btn btn-info btn-sm text-white me-2 mb-2" href="{{ path('contact_edit', {name: contact.name}) }}">
-                                <i class="fa-regular fa-pen-to-square me-2"></i>{{ 'button.edit'|trans }}
-                            </a>
-                            <a class="btn btn-danger btn-sm text-white" href="{{ path('contact_delete', {contact: contact.id}) }}">
-                                <i class="fa-solid fa-trash me-2"></i>{{ 'button.delete'|trans }}
+                            <a class="btn btn-info btn-sm text-white" href="{{ path('contact_edit', {name: contact.name}) }}">
+                                <i class="fa-regular fa-pen-to-square"></i>{{ 'button.edit'|trans }}
                             </a>
                         </td>
                     </tr>
